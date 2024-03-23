@@ -3,35 +3,47 @@ const { schema }  = mongoose;
 
 const HotelSchema = new mongoose.Schema({
     name: {
-        type: string,
+        type: String,
         required: true
     },
     type: {
-        type: string,
+        type: String,
         required: true
     },
     city: {
-        type: string,
+        type: String,
         required: true
     },
     address: {
-        type: string,
+        type: String,
         required: true
     },
     distance: {
-        type: string,
+        type: String,
         required: true
     },
     photos: {
-        type: [string],
+        type: [String],
     },
     desc: {
-        type: string,
+        type: String,
         required: true
     },
     rating: {
-        type: string,
+        type: Number,
+        min: 0,
+        max: 5
+    },
+    rooms:{
+        type: [String],   
+    },
+    cheapestPrice: {
+        type: Number,
         required: true
+    },
+    featured:{
+        type: Boolean,
+        default: false
     }
 })
 
