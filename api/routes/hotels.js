@@ -17,11 +17,43 @@ router.post("/", async (req, res) => {
 //updating
 router.put("/:id", async (req, res) => {
     try{
-        const updatedHotel = await hotel.findByIdAndUpdate(req.params.id, {$set: req.body});
+        const updatedHotel = await hotel.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
         res.status(200).json(updatedHotel);
     }catch(err){
         res.status(500).json(err)
     }
 })
+
+//deleting
+router.put("/:id", async (req, res) => {
+    try{
+        await hotel.findByIdAndDelete(req.params.id);
+        res.status(200).json("Hotel has been deleted successfully!");
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+// show/GET single hotel
+router.put("/:id", async (req, res) => {
+    try{
+        const hotel = await hotel.findById(req.params.id);
+        res.status(200).json(hotel);
+    }catch(err){
+        res.status(500).json(err)
+    }
+});
+
+// show/GET all hotels
+router.put("/:id", async (req, res) => {
+    console.log("hi I'm a hotel route");
+    next();
+    try{
+        const hotels = await hotel.find();
+        res.status(200).json(hotels);
+    }catch(err){
+        res.status(500).json(err)
+    }
+});
 
 export default router
