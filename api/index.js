@@ -24,8 +24,16 @@ app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
 app.use("/api/hotels", hotelRoute)
 app.use("/api/rooms", roomRoute)
-app.use((req, res, next) => {
-    console.log("hi there I'm the middleware")
+
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500
+    const errorMessage = err.message || "Something ain't right"
+    return res.status(errorStatus).json({
+        success: false,
+        status: errorStatus,
+        message: errorMessage,
+        stack: err.stack,
+    })
 })
 
 mongoose.connection.on("disconnected", () => {
