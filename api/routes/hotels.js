@@ -1,5 +1,6 @@
 import express from "express"
 import hotel from "../models/hotel.js";
+import { createError } from "../utils/error.js";
 
 const router = express.Router();
 //creating
@@ -35,7 +36,7 @@ router.put("/:id", async (req, res) => {
 })
 
 // show/GET single hotel
-router.put("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try{
         const hotel = await hotel.findById(req.params.id);
         res.status(200).json(hotel);
@@ -45,14 +46,12 @@ router.put("/:id", async (req, res) => {
 });
 
 // show/GET all hotels
-router.put("/:id", async (req, res) => {
-    console.log("hi I'm a hotel route");
-    next();
+router.get("/", async (req, res, next) => {
     try{
         const hotels = await hotel.find();
         res.status(200).json(hotels);
     }catch(err){
-        res.status(500).json(err)
+        next(err)
     }
 });
 
