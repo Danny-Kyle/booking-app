@@ -1,4 +1,4 @@
-import user from "../models/user"
+import User from "../models/user"
 import bcrypt from "bcryptjs"
 
 export const register = async(req, res, next) => {
@@ -6,11 +6,10 @@ export const register = async(req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-
-        const newUser = new user({
+        const newUser = new User({
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password
+            password: hash
         });
         
         await newUser.save()
