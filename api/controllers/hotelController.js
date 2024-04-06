@@ -1,4 +1,5 @@
-import hotel from "../models/hotel.js";
+import hotel from "../models/hotel.js"; 
+import { createError } from "../utils/error.js";
 
 export const createHotel = async (req, res, next) => {
   const newHotel = new hotel(req.body);
@@ -42,6 +43,8 @@ export const getSingleHotel = async (req, res, next) => {
 }
 
 export const getAllHotels = async (req, res, next) => {
+    const failed = true;
+    if(failed) return next(createError(401, "You aren't authenticated!"))
     try{
         const hotels = await hotel.find();
         res.status(200).json(hotels);
