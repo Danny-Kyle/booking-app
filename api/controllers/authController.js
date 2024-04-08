@@ -28,9 +28,8 @@ export const login = async(req, res, next) => {
         if(!isPasswordCorrect) 
             return next(createError(404, "Incorrect Password!"));
 
-            const {password, isAdmin, ...otherDetails} = user
-
-        res.status(200).json({...otherDetails})
+            const {password, isAdmin, ...otherDetails} = user._doc;
+        res.status(200).json({...otherDetails});
     }catch(err){
         next(err)
     }
