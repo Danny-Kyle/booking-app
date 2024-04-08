@@ -27,7 +27,7 @@ export const login = async(req, res, next) => {
         const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password)
         if(!isPasswordCorrect) return next(createError(404, "Incorrect Password!"))
 
-        res.status(200).send(user)
+        res.status(200).json(user)
     }catch(err){
         next(err)
     }
