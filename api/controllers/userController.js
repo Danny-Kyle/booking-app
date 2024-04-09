@@ -44,11 +44,11 @@ export const getSingleUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
     const failed = true;
-    if(failed) return next(createError(401, "You aren't authenticated!"))
+    if(failed) return next(createError(401, "You aren't authenticated!"));
     try{
         const Users = await User.find();
         res.status(200).json(Users);
     }catch(err){
-        next(err)
+        next(err);
     }
 }
