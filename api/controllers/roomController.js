@@ -1,9 +1,8 @@
-import Room from "../models/room";
-import Hotel from "../models/hotel";
+import Room from "../models/room.js";
+import Hotel from "../models/hotel.js";
 import {createError} from "../utils/error.js"
 
 export const createRoom = async(res, req, next) => {
-
     const hotelId = req.params.hotelid;
     const newRoom = new Room(req.body)
 
@@ -14,8 +13,48 @@ export const createRoom = async(res, req, next) => {
         }catch(err){
             next(err);
         }
+        res.status(200).json(savedRoom);
     }catch(err){
         next(err);
     }
+}
 
+export const updateRoom = async (req, res, next) => {
+    try{
+        const updatedRoom = await Room.findByIdAndUpdate(
+            req.params.id,
+            {$set: req.body},
+            {new: true}
+            );
+        res.status(200).json(updatedRoom);
+    }catch(err){
+        next(err);
+    }
+};
+
+export const deleteRoom  = async (req, res, next) => {
+    try{
+        await Room.findByIdAndDelete(req.params.id);
+        res.status(200).json("Room has been deleted successfully!");
+    }catch(err){
+        next(err);
+    }
+}
+
+export const getSingleRoom = async (req, res, next) => {
+    try{
+        const room = await Room.findById(req.params.id);
+        res.status(200).json(room);
+    }catch(err){
+        next(err);
+    }
+}
+
+export const getAllRooms = async (req, res, next) => {
+    try{
+        const rooms = await Room.find();
+        res.status(200).json(rooms);
+    }catch(err){
+        next(err)
+    }
 }
