@@ -1,5 +1,7 @@
-import jwt, { verify } from "jsonwebtoken"
-import { createError } from "./error"
+import pkg from "jsonwebtoken"
+import { createError } from "./error.js"
+
+const {jwt, verify} = pkg
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
